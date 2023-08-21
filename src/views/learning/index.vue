@@ -5,7 +5,8 @@
     <!-- <main03 /> -->
     <!-- <main04 /> -->
     <!-- <christmas /> -->
-    <earthVue />
+    <!-- <earthVue /> -->
+    <houseVue />
   </div>
 </template>
 <script>
@@ -19,9 +20,10 @@ import main03 from './main03.vue'
 import main04 from './main04.vue'
 import christmas from './christmas.vue'
 import earthVue from './earth/earth.vue'
+import houseVue from './house'
 export default {
   name: 'learning',
-  components: { main01, main02, main03, main04, christmas, earthVue },
+  components: { main01, main02, main03, main04, christmas, earthVue, houseVue },
   data() {
     return {}
   },
