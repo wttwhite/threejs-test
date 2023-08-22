@@ -28,7 +28,9 @@ export default {
         '厨房',
         2,
         './textures/house/kitchen',
-        kitchenPosition
+        kitchenPosition,
+        // 旋转角度
+        new THREE.Euler(0, -Math.PI / 2, 0)
       )
       scene.add(kitchen.cube)
       const kitchenLabel = new CreateLabel(
@@ -44,6 +46,21 @@ export default {
           x: kitchenPosition.x,
           y: kitchenPosition.y,
           z: kitchenPosition.z,
+        })
+      })
+      const kitchenBackLabel = new CreateLabel(
+        '客厅',
+        new THREE.Vector3(-4, 0, -6)
+      )
+      scene.add(kitchenBackLabel.sprite)
+      kitchenBackLabel.AddClick(camera, kitchenBackLabel.sprite)
+      kitchenBackLabel.onClick(() => {
+        // 移动相机位置，回到原点
+        gsap.to(camera.position, {
+          duration: 1,
+          x: 0,
+          y: 0,
+          z: 0,
         })
       })
       // 添加世界坐标辅助器,坐标系长度为5
