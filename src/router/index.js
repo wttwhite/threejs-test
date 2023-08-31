@@ -34,6 +34,15 @@ const routes = [
     },
     component: learning,
   },
+  {
+    path: '/car',
+    name: 'car',
+    meta: {
+      name: 'car展示',
+      menu: true,
+    },
+    component: () => import('@/views/car'),
+  },
 ]
 
 const originalPush = VueRouter.prototype.push
