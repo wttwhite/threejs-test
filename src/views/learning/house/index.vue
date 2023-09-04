@@ -10,7 +10,9 @@ import gsap from 'gsap'
 export default {
   name: 'house',
   data() {
-    return {}
+    return {
+      container: {},
+    }
   },
   mounted() {
     this.init()
@@ -125,7 +127,8 @@ export default {
     initRenderer() {
       const renderer = new THREE.WebGLRenderer()
       renderer.setSize(window.innerWidth, window.innerHeight)
-      document.getElementById('container').appendChild(renderer.domElement)
+      this.container = document.getElementById('container')
+      this.container.appendChild(renderer.domElement)
       return renderer
     },
     initControls(camera, renderer) {
@@ -222,10 +225,25 @@ class CreateLabel {
     const mouse = new THREE.Vector2() // 二维向量
     const raycaster = new THREE.Raycaster() // 投射光线器
     window.addEventListener('click', (event) => {
-      console.log('11111111111111', event.clientX)
-      console.log('11111111111111', event.clientY)
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1 // 归一化-1 ~ 1
-      mouse.y = (event.clientY / window.innerHeight) * 2 - 1
+      // 这个计算有问题， f11全屏正好，难怪一直点不准
+      // mouse.x = (event.clientX / window.innerWidth) * 2 - 1 // 归一化-1 ~ 1
+      // mouse.y = (event.clientY / window.innerHeight) * 2 - 1
+      this.container = document.getElementById('container')
+      if (!this.container || !this.container.getBoundingClientRect) {
+        return false
+      }
+      mouse.x =
+        ((event.clientX - this.container.getBoundingClientRect().left) /
+          this.container.getBoundingClientRect().width) *
+          2 -
+        1
+      mouse.y =
+        -(
+          (event.clientY - this.container.getBoundingClientRect().top) /
+          this.container.getBoundingClientRect().height
+        ) *
+          2 +
+        1
       raycaster.setFromCamera(mouse, camera)
       // 检测精灵
       const intersects = raycaster.intersectObject(sprite)
